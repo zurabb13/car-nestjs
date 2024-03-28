@@ -1,0 +1,37 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Cars {
+  _id: String!
+  description: String!
+  year: Int!
+  price: Int!
+  image: String!
+  name: String!
+  phone: Int!
+  manufacturer: String!
+  model: String!
+  category: String!
+  mileage: String!
+  fuel: String!
+  engine: String!
+  cylinders: String!
+  gearboxtype: Int!
+  drive: String!
+  doors: Int!
+  airbags: String!
+  wheel: String!
+  color: String!
+  interiormaterial: String!
+  exchange: Boolean!
+  technicalinspection: Boolean!
+  catalyst: Boolean!
+  comport: String!
+  interior: String!
+}
+
+type Query {
+  getCars: [Cars!]!
+  getCarsById(id: String!): Cars!
+}
