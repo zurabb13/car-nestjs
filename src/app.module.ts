@@ -5,14 +5,29 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { CarsModule } from './cars/cars.module';
 
+const corsOptions = {
+  origin: [
+    'https://grumpy-baseball-cap-colt.cyclic.app/',
+    'https://studio.apollographql.com',
+  ],
+  // Add other allowed origins as needed
+  credentials: true, // Allow cookies for authentication purposes
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Allowed HTTP methods
+  allowedHeaders:
+    'Content-Type, Accept, Authorization, Origin, X-Requested-With', // Allowed headers
+};
+
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env' }),
     MongooseModule.forRoot(process.env.MONGO),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'src/schema.gql',
-      playground: true,
+      useFactory: () => ({
+        autoSchemaFile: 'src/schema.gql',
+        playground: true,
+        cors: corsOptions,
+      }),
     }),
     CarsModule,
   ],
