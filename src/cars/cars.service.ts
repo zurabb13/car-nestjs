@@ -8,10 +8,10 @@ export class CarsService {
   constructor(@InjectModel(Cars.name) private model: Model<CarsDocument>) {}
 
   async getCasrs(): Promise<Cars[]> {
-    return await this.model.find().exec();
+    return await this.model.find().select('-_id').exec();
   }
 
   async getById(id: string): Promise<Cars> {
-    return await this.model.findOne({ where: { _id: id } }).exec();
+    return await this.model.findById(id).exec();
   }
 }
