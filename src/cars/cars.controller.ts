@@ -1,19 +1,18 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Controller, Get, Param } from '@nestjs/common';
 import { CarsService } from './cars.service';
-
 import { Cars } from 'src/models/cars.model';
 
-@Resolver(() => Cars)
-export class CarsResolver {
+@Controller('cars')
+export class CarsController {
   constructor(private service: CarsService) {}
 
-  @Query(() => [Cars])
+  @Get()
   async getCars(): Promise<Cars[]> {
     return await this.service.getCasrs();
   }
 
-  @Query(() => Cars)
-  async getCarsById(@Args('id') id: string): Promise<Cars> {
+  @Get(':id')
+  async getCarById(@Param('id') id: string): Promise<Cars> {
     return await this.service.getById(id);
   }
 }
